@@ -175,7 +175,6 @@ class Agent(object):
                 return torch.tensor(action_space[1][0], device=self.device, dtype=torch.long), action_space[1]
             with torch.no_grad():
                 actions_value = self.policy_net(state_emb, cand_emb)
-                print(sorted(list(zip(cand[0].tolist(), actions_value[0].tolist())), key=lambda x: x[1], reverse=True))
                 action = cand[0][actions_value.argmax().item()]
                 sorted_actions = cand[0][actions_value.sort(1, True)[1].tolist()]
                 return action, sorted_actions.tolist()
@@ -238,11 +237,10 @@ class Agent(object):
         return loss.data
     
     def save_model(self, data_name, filename, epoch_user):
-        save_rl_agent(dataset=data_name, model={'policy': self.policy_net.state_dict(), 'gcn': self.gcn_net.state_dict()}, filename=filename, epoch_user=epoch_user)
+        save_rl_agent(dataset=data_name, model=self.policy_net, filename=filename, epoch_user=epoch_user)
     def load_model(self, data_name, filename, epoch_user):
         model_dict = load_rl_agent(dataset=data_name, filename=filename, epoch_user=epoch_user)
-        self.policy_net.load_state_dict(model_dict['policy'])
-        self.gcn_net.load_state_dict(model_dict['gcn'])
+        self.policy_net.load_state_dict(model_dict)
     
     def padding(self, cand):
         pad_size = max([len(c) for c in cand])
@@ -355,6 +353,10 @@ def main():
     parser.add_argument('--epochs', '-me', type=int, default=50000, help='the number of RL train epoch')
     parser.add_argument('--fm_epoch', type=int, default=0, help='the epoch of FM embedding')
     parser.add_argument('--batch_size', type=int, default=128, help='batch size.')
+
+    #Ahsan: I added the observe_num variable because it is being called in dqn_evaluate
+    parser.add_argument('--observe_num', type=int, default=128, help='observation_num or batch size?')
+
     parser.add_argument('--gamma', type=float, default=0.999, help='reward discount factor.')
     parser.add_argument('--learning_rate', type=float, default=1e-4, help='learning rate.')
     parser.add_argument('--l2_norm', type=float, default=1e-6, help='l2 regularization.')
@@ -375,14 +377,13 @@ def main():
     parser.add_argument('--max_steps', type=int, default=100, help='max training steps')
     parser.add_argument('--eval_num', type=int, default=10, help='the number of steps to evaluate RL model and metric')
     parser.add_argument('--save_num', type=int, default=10, help='the number of steps to save RL model and metric')
-    parser.add_argument('--observe_num', type=int, default=500, help='the number of steps to print metric')
     parser.add_argument('--cand_num', type=int, default=10, help='candidate sampling number')
     parser.add_argument('--cand_item_num', type=int, default=10, help='candidate item sampling number')
     parser.add_argument('--fix_emb', action='store_false', help='fix embedding or not')
     parser.add_argument('--embed', type=str, default='transe', help='pretrained embeddings')
     parser.add_argument('--seq', type=str, default='transformer', choices=['rnn', 'transformer', 'mean'], help='sequential learning method')
     parser.add_argument('--gcn', action='store_false', help='use GCN or not')
-
+    
 
     args = parser.parse_args()
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu

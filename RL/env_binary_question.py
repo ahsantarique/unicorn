@@ -6,8 +6,9 @@ import random
 from utils import *
 from torch import nn
 
-from tkinter import _flatten
 from collections import Counter
+from itertools import chain
+
 class BinaryRecommendEnv(object):
     def __init__(self, kg, dataset, data_name, embed, seed=1, max_turn=15, cand_num=10, cand_item_num=10, attr_num=20, mode='train', ask_num=1, entropy_way='weight entropy', fm_epoch=0):
         self.data_name = data_name
@@ -220,17 +221,15 @@ class BinaryRecommendEnv(object):
         reachable_feature = [x + self.user_length + self.item_length for x in self.reachable_feature]
         neighbors = cur_node + user + cand_items + reachable_feature
         
-        idx = dict(enumerate(neighbors))
+        idx = dict(enumerate(list(self.cur_node_set) + user + list(self_cand_items) + list(self.reachable_feature)))
         idx = {v: k for k, v in idx.items()}
 
         i = []
         v = []
         for item in self_cand_items:
-            item_idx = item + self.user_length
             for fea in self.item_feature_pair[item]:
-                fea_idx = fea + self.user_length + self.item_length
-                i.append([idx[item_idx], idx[fea_idx]])
-                i.append([idx[fea_idx], idx[item_idx]])
+                i.append([idx[item], idx[fea]])
+                i.append([idx[fea], idx[item]])
                 v.append(1)
                 v.append(1)
 
@@ -240,9 +239,8 @@ class BinaryRecommendEnv(object):
             if self.data_name in ['YELP_STAR']:
                 if item not in set_cand_items:
                     continue
-            item_idx = item + self.user_length
-            i.append([user_idx, idx[item_idx]])
-            i.append([idx[item_idx], user_idx])
+            i.append([user_idx, idx[item]])
+            i.append([idx[item], user_idx])
             v.append(score)
             v.append(score)
         
@@ -440,7 +438,7 @@ class BinaryRecommendEnv(object):
             cand_items_fea_list = []
             for item_id in self.cand_items:
                 cand_items_fea_list.append(list(self.kg.G['item'][item_id]['belong_to']))
-            cand_items_fea_list = list(_flatten(cand_items_fea_list))
+            cand_items_fea_list = list(chain(*cand_items_fea_list))
             self.attr_count_dict = dict(Counter(cand_items_fea_list))
             self.attr_ent = [0] * self.attr_state_num  # reset attr_ent
             real_ask_able = list(set(self.reachable_feature) & set(self.attr_count_dict.keys()))

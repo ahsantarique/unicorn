@@ -1,0 +1,135 @@
+===========Test===============
+Testing 2499 user tuples
+Testing SR@5: 0.5842927631578947
+Testing SR@10: 0.9263980263157895
+Testing SR@15: 0.9806743421052632
+Testing Avg@T: 5.513569078947368
+Testing hDCG: 0.4003997912705421
+Testing time: 2538.6243653297424
+================================
+===========Test===============
+Testing 2499 user tuples
+Testing SR@5: 0.579358552631579
+Testing SR@10: 0.9276315789473685
+Testing SR@15: 0.9814967105263158
+Testing Avg@T: 5.613486842105263
+Testing hDCG: 0.3964238175793096
+Testing time: 3142.492794275284
+================================
+===========Test===============
+Testing 2499 user tuples
+Testing SR@5: 0.5620888157894737
+Testing SR@10: 0.928453947368421
+Testing SR@15: 0.9810855263157895
+Testing Avg@T: 5.6587171052631575
+Testing hDCG: 0.392301406329904
+Testing time: 3266.885856151581
+================================
+===========Test===============
+Testing 2499 user tuples
+Testing SR@5: 0.5213815789473685
+Testing SR@10: 0.920641447368421
+Testing SR@15: 0.9819078947368421
+Testing Avg@T: 5.868009868421052
+Testing hDCG: 0.38703647665628227
+Testing time: 4281.481555700302
+================================
+===========Test===============
+Testing 2499 user tuples
+Testing SR@5: 0.5061677631578947
+Testing SR@10: 0.9083059210526315
+Testing SR@15: 0.9827302631578947
+Testing Avg@T: 6.041118421052632
+Testing hDCG: 0.3874257193692946
+Testing time: 4667.7219252586365
+================================
+===========Test===============
+Testing 2499 user tuples
+Testing SR@5: 0.48601973684210525
+Testing SR@10: 0.9136513157894737
+Testing SR@15: 0.9823190789473685
+Testing Avg@T: 6.1040296052631575
+Testing hDCG: 0.3807320048731051
+Testing time: 4985.220078468323
+================================
+===========Test===============
+Testing 2499 user tuples
+Testing SR@5: 0.4745065789473684
+Testing SR@10: 0.9103618421052632
+Testing SR@15: 0.983141447368421
+Testing Avg@T: 6.158305921052632
+Testing hDCG: 0.3790480495728503
+Testing time: 4609.985199689865
+================================
+===========Test===============
+Testing 2499 user tuples
+Testing SR@5: 0.4934210526315789
+Testing SR@10: 0.90625
+Testing SR@15: 0.9786184210526315
+Testing Avg@T: 6.1019736842105265
+Testing hDCG: 0.3850671282656825
+Testing time: 3871.711788415909
+================================
+===========Test===============
+Testing 2499 user tuples
+Testing SR@5: 0.48601973684210525
+Testing SR@10: 0.905016447368421
+Testing SR@15: 0.9769736842105263
+Testing Avg@T: 6.200246710526316
+Testing hDCG: 0.3761599708725941
+Testing time: 4018.235493183136
+================================
+===========Test===============
+Testing 2499 user tuples
+Testing SR@5: 0.4712171052631579
+Testing SR@10: 0.9004934210526315
+Testing SR@15: 0.9851973684210527
+Testing Avg@T: 6.196134868421052
+Testing hDCG: 0.3808564228348006
+Testing time: 5210.388159275055
+================================
+===========Test===============
+Testing 211318 user tuples
+Testing SR@5: 0.6103317535545024
+Testing SR@10: 0.8904312796208532
+Testing SR@15: 0.9658862559241705
+Testing Avg@T: 5.558412322274882
+Testing hDCG: 0.4068878867908937
+Testing time: 323886.65126276016
+================================
+===========Test===============
+Testing 259 user tuples
+Testing SR@5: nan
+Testing SR@10: nan
+Testing SR@15: nan
+Testing Avg@T: nan
+Testing hDCG: nan
+Testing time: 329.1402440071106
+================================
+===========Test===============
+Testing 259 user tuples
+Testing SR@5: nan
+Testing SR@10: nan
+Testing SR@15: nan
+Testing Avg@T: nan
+Testing hDCG: nan
+Testing time: 325.1144027709961
+================================
+===========Test===============
+Testing 4 user tuples
+Testing SR@5: nan
+Testing SR@10: nan
+Testing SR@15: nan
+Testing Avg@T: nan
+Testing hDCG: nan
+Testing time: 6.087331295013428
+================================
+===========Test===============
+Testing 999 user tuples
+Testing SR@5: 0.542
+Testing SR@10: 0.83
+Testing SR@15: 0.938
+Testing Avg@T: 6.289999999999999
+Testing hDCG: 0.379313608222069
+Testing time: 1174.4227540493011
+================================

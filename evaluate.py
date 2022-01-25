@@ -63,14 +63,16 @@ def evaluate(args, kg, dataset, filename):
     SR_turn_15 = [0]* args.max_turn
     turn_result = []
     result = []
+
+    test_env.ui_array = test_env.ui_array[:1000]
     user_size = test_env.ui_array.shape[0]
-    
+    print("args.observe_num:", args.observe_num)
     print('User size in UI_test: ', user_size)
     test_filename = 'Evaluate-epoch-{}-'.format(args.load_rl_epoch) + filename
 
     for user_num in tqdm(range(user_size)):  #user_size
         # TODO uncommend this line to print the dialog process
-        blockPrint()
+        # blockPrint()
         print('\n================test tuple:{}===================='.format(user_num))
         state, cand, action_space = test_env.reset()  # Reset environment and record the starting state
         is_last_turn = False
@@ -78,14 +80,21 @@ def evaluate(args, kg, dataset, filename):
             if t == 14:
                 is_last_turn = True
             action, sorted_actions = agent.select_action(state, cand, action_space, is_test=True, is_last_turn=is_last_turn)
+
+            # enablePrint()
+            print("ahsan action: ", action)
+            print("ahsan sprted action: ", sorted_actions)
+
+            # blockPrint()
+
             next_state, next_cand, action_space, reward, done = test_env.step(action.item(), sorted_actions)
             reward = torch.tensor([reward], device=args.device, dtype=torch.float)
             if done:
+                enablePrint()
                 next_state = None
             state = next_state
             cand = next_cand
             if done:
-                enablePrint()
                 if reward.item() == 1:  # recommend successfully
                     SR_turn_15 = [v+1 if i>t  else v for i, v in enumerate(SR_turn_15) ]
                     if t < 5:
@@ -197,6 +206,9 @@ def main():
     print('args.entropy_method:', args.entropy_method)
 
     dataset = load_dataset(args.data_name)
+
+    print("dataset load complete--ahsan")
+
     filename = 'train-data-{}-RL-cand_num-{}-cand_item_num-{}-embed-{}-seq-{}-gcn-{}'.format(
         args.data_name, args.cand_num, args.cand_item_num, args.embed, args.seq, args.gcn)
     evaluate(args, kg, dataset, filename)
